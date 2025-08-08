@@ -1,0 +1,1094 @@
+<!DOCTYPE html>
+<html lang="fa" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>B\S PARTS - فروشگاه لوازم یدکی خودروهای آلمانی</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        'vazir': ['Vazir', 'sans-serif']
+                    }
+                }
+            }
+        }
+    </script>
+    <link href="https://fonts.googleapis.com/css2?family=Vazir:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        body { font-family: 'Vazir', sans-serif; }
+        .product-card:hover { transform: translateY(-4px); }
+        .cart-badge { animation: pulse 2s infinite; }
+    </style>
+</head>
+<body class="bg-gray-50">
+    <!-- Contact Bar -->
+    <div class="bg-gray-800 text-white py-2">
+        <div class="container mx-auto px-4">
+            <div class="flex items-center justify-center space-x-8 space-x-reverse text-sm">
+                <div class="flex items-center space-x-2 space-x-reverse">
+                    <span>📱</span>
+                    <span>موبایل: 09124583607</span>
+                </div>
+                <div class="flex items-center space-x-2 space-x-reverse">
+                    <span>☎️</span>
+                    <span>دفتر: 02136059698</span>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Header -->
+    <header class="bg-white shadow-md sticky top-0 z-50">
+        <div class="container mx-auto px-4">
+            <div class="flex items-center justify-between py-4">
+                <div class="flex items-center space-x-4 space-x-reverse">
+                    <div class="text-2xl font-bold text-blue-600">🚗 B\S PARTS</div>
+                    <div class="hidden md:block text-sm text-gray-600">فروشگاه تخصصی لوازم یدکی آلمانی</div>
+                </div>
+                
+                <div class="flex-1 max-w-md mx-8">
+                    <div class="relative">
+                        <input type="text" placeholder="جستجو در محصولات..." 
+                               class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500">
+                        <button class="absolute left-2 top-2 text-gray-400 hover:text-blue-600">🔍</button>
+                    </div>
+                </div>
+                
+                <div class="flex items-center space-x-4 space-x-reverse">
+                    <button onclick="showAdminLogin()" class="px-3 py-2 text-purple-600 border border-purple-600 rounded-lg hover:bg-purple-50 text-sm">
+                        مدیریت فروشگاه
+                    </button>
+                    <button onclick="toggleCart()" class="relative p-2 text-gray-600 hover:text-blue-600">
+                        🛒
+                        <span id="cartBadge" class="absolute -top-1 -right-1 bg-red-500 text-white text-xs rounded-full w-5 h-5 flex items-center justify-center cart-badge">0</span>
+                    </button>
+                    <button class="px-4 py-2 text-blue-600 border border-blue-600 rounded-lg hover:bg-blue-50">ورود</button>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- Navigation -->
+    <nav class="bg-blue-600 text-white">
+        <div class="container mx-auto px-4">
+            <div class="flex items-center space-x-8 space-x-reverse py-3">
+                <div class="relative group">
+                    <a href="#" onclick="filterByBrand('BMW')" class="hover:text-blue-200 flex items-center">
+                        BMW <span class="mr-1">▼</span>
+                    </a>
+                    <div class="absolute top-full right-0 bg-white text-gray-800 shadow-lg rounded-lg mt-1 w-48 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200 z-50">
+                        <a href="#" onclick="filterByCategory('BMW', 'body')" class="block px-4 py-2 hover:bg-gray-100">لوازم بدنه</a>
+                        <a href="#" onclick="filterByCategory('BMW', 'engine')" class="block px-4 py-2 hover:bg-gray-100">لوازم موتوری</a>
+                        <a href="#" onclick="filterByCategory('BMW', 'frontend')" class="block px-4 py-2 hover:bg-gray-100">لوازم جلوبندی</a>
+                        <a href="#" onclick="filterByCategory('BMW', 'gearbox')" class="block px-4 py-2 hover:bg-gray-100">گیربکس و دیفرانسیل</a>
+                        <a href="#" onclick="filterByCategory('BMW', 'electrical')" class="block px-4 py-2 hover:bg-gray-100">لوازم برقی</a>
+                    </div>
+                </div>
+                <div class="relative group">
+                    <a href="#" onclick="filterByBrand('Mercedes')" class="hover:text-blue-200 flex items-center">
+                        مرسدس بنز <span class="mr-1">▼</span>
+                    </a>
+                    <div class="absolute top-full right-0 bg-white text-gray-800 shadow-lg rounded-lg mt-1 w-48 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200 z-50">
+                        <a href="#" onclick="filterByCategory('Mercedes', 'body')" class="block px-4 py-2 hover:bg-gray-100">لوازم بدنه</a>
+                        <a href="#" onclick="filterByCategory('Mercedes', 'engine')" class="block px-4 py-2 hover:bg-gray-100">لوازم موتوری</a>
+                        <a href="#" onclick="filterByCategory('Mercedes', 'frontend')" class="block px-4 py-2 hover:bg-gray-100">لوازم جلوبندی</a>
+                        <a href="#" onclick="filterByCategory('Mercedes', 'gearbox')" class="block px-4 py-2 hover:bg-gray-100">گیربکس و دیفرانسیل</a>
+                        <a href="#" onclick="filterByCategory('Mercedes', 'electrical')" class="block px-4 py-2 hover:bg-gray-100">لوازم برقی</a>
+                    </div>
+                </div>
+                <div class="relative group">
+                    <a href="#" onclick="filterByBrand('Porsche')" class="hover:text-blue-200 flex items-center">
+                        پورشه <span class="mr-1">▼</span>
+                    </a>
+                    <div class="absolute top-full right-0 bg-white text-gray-800 shadow-lg rounded-lg mt-1 w-48 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200 z-50">
+                        <a href="#" onclick="filterByCategory('Porsche', 'body')" class="block px-4 py-2 hover:bg-gray-100">لوازم بدنه</a>
+                        <a href="#" onclick="filterByCategory('Porsche', 'engine')" class="block px-4 py-2 hover:bg-gray-100">لوازم موتوری</a>
+                        <a href="#" onclick="filterByCategory('Porsche', 'frontend')" class="block px-4 py-2 hover:bg-gray-100">لوازم جلوبندی</a>
+                        <a href="#" onclick="filterByCategory('Porsche', 'gearbox')" class="block px-4 py-2 hover:bg-gray-100">گیربکس و دیفرانسیل</a>
+                        <a href="#" onclick="filterByCategory('Porsche', 'electrical')" class="block px-4 py-2 hover:bg-gray-100">لوازم برقی</a>
+                    </div>
+                </div>
+                <a href="#" onclick="filterByBrand('all')" class="hover:text-blue-200">همه محصولات</a>
+                <a href="#" class="hover:text-blue-200">تخفیف‌ها</a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Banner -->
+    <section class="bg-gradient-to-r from-blue-600 to-blue-800 text-white py-16">
+        <div class="container mx-auto px-4 text-center">
+            <h1 class="text-4xl font-bold mb-4">بهترین لوازم یدکی آلمانی</h1>
+            <p class="text-xl mb-8">کیفیت اصل، قیمت مناسب، تحویل سریع</p>
+            <button class="bg-white text-blue-600 px-8 py-3 rounded-lg font-semibold hover:bg-gray-100 transition-colors">
+                مشاهده محصولات
+            </button>
+        </div>
+    </section>
+
+    <!-- Products Grid -->
+    <section class="container mx-auto px-4 py-12">
+        <h2 class="text-2xl font-bold mb-8">محصولات پرفروش</h2>
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6" id="productsGrid">
+            <!-- Products will be populated by JavaScript -->
+        </div>
+    </section>
+
+    <!-- Admin Login Modal -->
+    <div id="adminLoginModal" class="fixed inset-0 bg-black bg-opacity-50 hidden items-center justify-center z-50">
+        <div class="bg-white rounded-lg p-8 max-w-md w-full mx-4">
+            <h3 class="text-xl font-bold mb-6 text-center">ورود مدیر</h3>
+            
+            <div class="space-y-4">
+                <div>
+                    <label class="block text-sm font-medium mb-2">رمز عبور</label>
+                    <input type="password" id="adminPassword" class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-purple-500" placeholder="رمز عبور را وارد کنید">
+                </div>
+                
+
+            </div>
+            
+            <div class="flex space-x-4 space-x-reverse mt-6">
+                <button onclick="closeAdminLogin()" class="flex-1 px-4 py-2 border border-gray-300 rounded-lg hover:bg-gray-50">
+                    انصراف
+                </button>
+                <button onclick="checkAdminPassword()" class="flex-1 px-4 py-2 bg-purple-600 text-white rounded-lg hover:bg-purple-700">
+                    ورود
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Admin Panel -->
+    <div id="adminPanel" class="fixed inset-0 bg-white z-50 hidden overflow-y-auto">
+        <div class="bg-purple-600 text-white p-4">
+            <div class="flex items-center justify-between">
+                <h2 class="text-2xl font-bold">🛠️ پنل مدیریت فروشگاه</h2>
+                <button onclick="closeAdminPanel()" class="bg-purple-700 px-4 py-2 rounded-lg hover:bg-purple-800">
+                    بستن پنل
+                </button>
+            </div>
+        </div>
+
+        <div class="container mx-auto px-4 py-8">
+            <!-- Add New Product Form -->
+            <div class="bg-white rounded-lg shadow-md p-6 mb-8">
+                <h3 class="text-xl font-bold mb-4">➕ افزودن محصول جدید</h3>
+                
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                    <div>
+                        <label class="block text-sm font-medium mb-2">نام محصول</label>
+                        <input type="text" id="newProductName" class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-purple-500">
+                    </div>
+                    
+                    <div>
+                        <label class="block text-sm font-medium mb-2">قیمت (تومان)</label>
+                        <input type="number" id="newProductPrice" class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-purple-500">
+                    </div>
+                    
+                    <div>
+                        <label class="block text-sm font-medium mb-2">برند</label>
+                        <select id="newProductBrand" class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-purple-500">
+                            <option value="BMW">BMW</option>
+                            <option value="Mercedes">مرسدس بنز</option>
+                            <option value="Porsche">پورشه</option>
+                        </select>
+                    </div>
+                    
+                    <div>
+                        <label class="block text-sm font-medium mb-2">دسته‌بندی</label>
+                        <select id="newProductCategory" class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-purple-500">
+                            <option value="body">لوازم بدنه</option>
+                            <option value="engine">لوازم موتوری</option>
+                            <option value="frontend">لوازم جلوبندی</option>
+                            <option value="gearbox">گیربکس و دیفرانسیل</option>
+                            <option value="electrical">لوازم برقی</option>
+                        </select>
+                    </div>
+                    
+                    <div>
+                        <label class="block text-sm font-medium mb-2">تصویر محصول</label>
+                        <div class="space-y-3">
+                            <div class="flex items-center space-x-4 space-x-reverse">
+                                <label class="flex items-center">
+                                    <input type="radio" name="imageType" value="emoji" checked onchange="toggleImageInput('new')" class="ml-2">
+                                    <span>ایموجی</span>
+                                </label>
+                                <label class="flex items-center">
+                                    <input type="radio" name="imageType" value="upload" onchange="toggleImageInput('new')" class="ml-2">
+                                    <span>آپلود عکس</span>
+                                </label>
+                            </div>
+                            <input type="text" id="newProductImage" class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-purple-500" placeholder="🔧">
+                            <input type="file" id="newProductImageFile" accept="image/*" onchange="handleImageUpload('new')" class="hidden w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-purple-500">
+                            <div id="newImagePreview" class="hidden mt-2">
+                                <img id="newPreviewImg" src="" alt="پیش‌نمایش" class="w-20 h-20 object-cover rounded-lg border">
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div>
+                        <label class="block text-sm font-medium mb-2">توضیحات</label>
+                        <input type="text" id="newProductDescription" class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-purple-500">
+                    </div>
+                </div>
+                
+                <button onclick="addNewProduct()" class="mt-4 bg-green-600 text-white px-6 py-2 rounded-lg hover:bg-green-700">
+                    ➕ افزودن محصول
+                </button>
+            </div>
+
+            <!-- Products Management -->
+            <div class="bg-white rounded-lg shadow-md p-6">
+                <h3 class="text-xl font-bold mb-4">📦 مدیریت محصولات موجود</h3>
+                
+                <div class="overflow-x-auto">
+                    <table class="w-full border-collapse border border-gray-300">
+                        <thead>
+                            <tr class="bg-gray-100">
+                                <th class="border border-gray-300 px-4 py-2">ایموجی</th>
+                                <th class="border border-gray-300 px-4 py-2">نام محصول</th>
+                                <th class="border border-gray-300 px-4 py-2">قیمت</th>
+                                <th class="border border-gray-300 px-4 py-2">برند</th>
+                                <th class="border border-gray-300 px-4 py-2">دسته‌بندی</th>
+                                <th class="border border-gray-300 px-4 py-2">عملیات</th>
+                            </tr>
+                        </thead>
+                        <tbody id="adminProductsList">
+                            <!-- Products will be populated by JavaScript -->
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Edit Product Modal -->
+    <div id="editProductModal" class="fixed inset-0 bg-black bg-opacity-50 hidden items-center justify-center z-50">
+        <div class="bg-white rounded-lg p-8 max-w-md w-full mx-4">
+            <h3 class="text-xl font-bold mb-6 text-center">✏️ ویرایش محصول</h3>
+            
+            <div class="space-y-4">
+                <div>
+                    <label class="block text-sm font-medium mb-2">نام محصول</label>
+                    <input type="text" id="editProductName" class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-purple-500">
+                </div>
+                
+                <div>
+                    <label class="block text-sm font-medium mb-2">قیمت (تومان)</label>
+                    <input type="number" id="editProductPrice" class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-purple-500">
+                </div>
+                
+                <div>
+                    <label class="block text-sm font-medium mb-2">توضیحات</label>
+                    <input type="text" id="editProductDescription" class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-purple-500">
+                </div>
+                
+                <div>
+                    <label class="block text-sm font-medium mb-2">تصویر محصول</label>
+                    <div class="space-y-3">
+                        <div class="flex items-center space-x-4 space-x-reverse">
+                            <label class="flex items-center">
+                                <input type="radio" name="editImageType" value="emoji" checked onchange="toggleImageInput('edit')" class="ml-2">
+                                <span>ایموجی</span>
+                            </label>
+                            <label class="flex items-center">
+                                <input type="radio" name="editImageType" value="upload" onchange="toggleImageInput('edit')" class="ml-2">
+                                <span>آپلود عکس</span>
+                            </label>
+                        </div>
+                        <input type="text" id="editProductImage" class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-purple-500">
+                        <input type="file" id="editProductImageFile" accept="image/*" onchange="handleImageUpload('edit')" class="hidden w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-purple-500">
+                        <div id="editImagePreview" class="hidden mt-2">
+                            <img id="editPreviewImg" src="" alt="پیش‌نمایش" class="w-20 h-20 object-cover rounded-lg border">
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="flex space-x-4 space-x-reverse mt-6">
+                <button onclick="closeEditProduct()" class="flex-1 px-4 py-2 border border-gray-300 rounded-lg hover:bg-gray-50">
+                    انصراف
+                </button>
+                <button onclick="saveProductChanges()" class="flex-1 px-4 py-2 bg-purple-600 text-white rounded-lg hover:bg-purple-700">
+                    ذخیره تغییرات
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Shopping Cart Sidebar -->
+    <div id="cartSidebar" class="fixed right-0 top-0 h-full w-80 bg-white shadow-2xl transform translate-x-full transition-transform duration-300 z-50">
+        <div class="p-6 border-b">
+            <div class="flex items-center justify-between">
+                <h3 class="text-lg font-semibold">سبد خرید</h3>
+                <button onclick="toggleCart()" class="text-gray-500 hover:text-gray-700">✕</button>
+            </div>
+        </div>
+        
+        <div id="cartItems" class="flex-1 overflow-y-auto p-6">
+            <div class="text-center text-gray-500 py-8">
+                سبد خرید شما خالی است
+            </div>
+        </div>
+        
+        <div class="border-t p-6">
+            <div class="flex justify-between items-center mb-4">
+                <span class="font-semibold">مجموع:</span>
+                <span id="cartTotal" class="font-bold text-lg">0 تومان</span>
+            </div>
+            <button onclick="proceedToCheckout()" class="w-full bg-green-600 text-white py-3 rounded-lg font-semibold hover:bg-green-700 transition-colors">
+                پرداخت امن
+            </button>
+        </div>
+    </div>
+
+    <!-- Checkout Modal -->
+    <div id="checkoutModal" class="fixed inset-0 bg-black bg-opacity-50 hidden items-center justify-center z-50">
+        <div class="bg-white rounded-lg p-8 max-w-md w-full mx-4">
+            <h3 class="text-xl font-bold mb-6 text-center">پرداخت امن</h3>
+            
+            <div class="space-y-4">
+                <div>
+                    <label class="block text-sm font-medium mb-2">نام و نام خانوادگی</label>
+                    <input type="text" class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500">
+                </div>
+                
+                <div>
+                    <label class="block text-sm font-medium mb-2">شماره تلفن</label>
+                    <input type="tel" class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500">
+                </div>
+                
+                <div>
+                    <label class="block text-sm font-medium mb-2">آدرس</label>
+                    <textarea class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500" rows="3"></textarea>
+                </div>
+                
+                <div class="bg-yellow-50 border border-yellow-200 rounded-lg p-4">
+                    <p class="text-sm text-yellow-800">
+                        <strong>نمونه:</strong> این یک نمونه درگاه پرداخت است. در نسخه واقعی، اتصال به درگاه‌های پرداخت معتبر مانند زرین‌پال یا پارسیان انجام می‌شود.
+                    </p>
+                </div>
+            </div>
+            
+            <div class="flex space-x-4 space-x-reverse mt-6">
+                <button onclick="closeCheckout()" class="flex-1 px-4 py-2 border border-gray-300 rounded-lg hover:bg-gray-50">
+                    انصراف
+                </button>
+                <button onclick="processPayment()" class="flex-1 px-4 py-2 bg-green-600 text-white rounded-lg hover:bg-green-700">
+                    پرداخت
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- About Us Section -->
+    <section class="bg-white py-16">
+        <div class="container mx-auto px-4">
+            <div class="text-center mb-12">
+                <h2 class="text-3xl font-bold text-gray-800 mb-4">درباره ما</h2>
+                <p class="text-gray-600 max-w-2xl mx-auto">
+                    B\S PARTS با بیش از 10 سال تجربه در زمینه واردات و فروش لوازم یدکی اصل خودروهای آلمانی، 
+                    به عنوان یکی از معتبرترین فروشگاه‌های تخصصی در این حوزه شناخته می‌شود.
+                </p>
+            </div>
+            
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                <div class="text-center">
+                    <div class="text-4xl mb-4">🏆</div>
+                    <h3 class="text-xl font-semibold mb-2">کیفیت اصل</h3>
+                    <p class="text-gray-600">تمامی محصولات ما اصل و با گارانتی معتبر هستند</p>
+                </div>
+                
+                <div class="text-center">
+                    <div class="text-4xl mb-4">🚚</div>
+                    <h3 class="text-xl font-semibold mb-2">تحویل سریع</h3>
+                    <p class="text-gray-600">ارسال سریع به سراسر کشور در کمترین زمان ممکن</p>
+                </div>
+                
+                <div class="text-center">
+                    <div class="text-4xl mb-4">💰</div>
+                    <h3 class="text-xl font-semibold mb-2">قیمت مناسب</h3>
+                    <p class="text-gray-600">بهترین قیمت‌ها با کیفیت بالا و خدمات عالی</p>
+                </div>
+            </div>
+            
+            <div class="mt-12 bg-gray-50 rounded-lg p-8">
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+                    <div>
+                        <h3 class="text-xl font-semibold mb-4">📍 آدرس فروشگاه</h3>
+                        <p class="text-gray-700 leading-relaxed">
+                            خیابان امیر کبیر، کوچه دولت آبادی<br>
+                            پاساژ میلاد، پلاک 52
+                        </p>
+                    </div>
+                    
+                    <div>
+                        <h3 class="text-xl font-semibold mb-4">📞 اطلاعات تماس</h3>
+                        <div class="space-y-2 text-gray-700">
+                            <p>📱 موبایل: 09124583607</p>
+                            <p>☎️ دفتر: 02136059698</p>
+                            <p>🕒 ساعات کاری: 8 صبح تا 8 شب</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Overlay -->
+    <div id="overlay" class="fixed inset-0 bg-black bg-opacity-50 hidden z-40" onclick="toggleCart()"></div>
+
+    <script>
+        // Sample products data
+        let products = [
+            // BMW Products
+            {
+                id: 1,
+                name: "درب جلو BMW سری 3",
+                price: 4500000,
+                image: "🚪",
+                brand: "BMW",
+                category: "body",
+                description: "درب جلو اصل آلمان"
+            },
+            {
+                id: 2,
+                name: "فیلتر روغن BMW سری 5",
+                price: 450000,
+                image: "🔧",
+                brand: "BMW",
+                category: "engine",
+                description: "فیلتر روغن اصل آلمان"
+            },
+            {
+                id: 3,
+                name: "لنت عقب BMW 528 - Textar",
+                price: 6000000,
+                image: "🛞",
+                brand: "BMW",
+                category: "frontend",
+                description: "لنت ترمز عقب اصل آلمان"
+            },
+            {
+                id: 16,
+                name: "لنت جلو BMW 528 - Textar",
+                price: 6000000,
+                image: "🛞",
+                brand: "BMW",
+                category: "frontend",
+                description: "لنت ترمز جلو اصل آلمان"
+            },
+            {
+                id: 17,
+                name: "لنت جلو BMW X4 - Textar",
+                price: 6000000,
+                image: "🛞",
+                brand: "BMW",
+                category: "frontend",
+                description: "لنت ترمز جلو اصل آلمان"
+            },
+            {
+                id: 18,
+                name: "لنت جلو BMW X3 - Textar",
+                price: 6000000,
+                image: "🛞",
+                brand: "BMW",
+                category: "frontend",
+                description: "لنت ترمز جلو اصل آلمان"
+            },
+            {
+                id: 19,
+                name: "لنت عقب BMW X3 و X4 - Textar",
+                price: 6000000,
+                image: "🛞",
+                brand: "BMW",
+                category: "frontend",
+                description: "لنت ترمز عقب اصل آلمان"
+            },
+            {
+                id: 20,
+                name: "لنت جلو BMW F30, 328, 428 - Textar",
+                price: 5800000,
+                image: "🛞",
+                brand: "BMW",
+                category: "frontend",
+                description: "لنت ترمز جلو اصل آلمان"
+            },
+            {
+                id: 4,
+                name: "گیربکس BMW سری 7",
+                price: 15000000,
+                image: "⚙️",
+                brand: "BMW",
+                category: "gearbox",
+                description: "گیربکس اتوماتیک اصل"
+            },
+            {
+                id: 5,
+                name: "باتری BMW i3",
+                price: 1800000,
+                image: "🔋",
+                brand: "BMW",
+                category: "electrical",
+                description: "باتری اصل وارتا"
+            },
+            
+            // Mercedes Products
+            {
+                id: 6,
+                name: "کاپوت مرسدس C کلاس",
+                price: 6200000,
+                image: "🚗",
+                brand: "Mercedes",
+                category: "body",
+                description: "کاپوت اصل آلمان"
+            },
+            {
+                id: 7,
+                name: "روغن موتور مرسدس",
+                price: 650000,
+                image: "🛢️",
+                brand: "Mercedes",
+                category: "engine",
+                description: "روغن 5W-30 اصل"
+            },
+            {
+                id: 8,
+                name: "سپر جلو مرسدس E کلاس",
+                price: 3800000,
+                image: "🛡️",
+                brand: "Mercedes",
+                category: "frontend",
+                description: "سپر جلو اصل"
+            },
+            {
+                id: 9,
+                name: "دیفرانسیل مرسدس S کلاس",
+                price: 12000000,
+                image: "🔩",
+                brand: "Mercedes",
+                category: "gearbox",
+                description: "دیفرانسیل عقب اصل"
+            },
+            {
+                id: 10,
+                name: "آلترناتور مرسدس",
+                price: 2400000,
+                image: "⚡",
+                brand: "Mercedes",
+                category: "electrical",
+                description: "آلترناتور اصل بوش"
+            },
+            
+            // Porsche Products
+            {
+                id: 11,
+                name: "درب عقب پورشه 911",
+                price: 8500000,
+                image: "🚪",
+                brand: "Porsche",
+                category: "body",
+                description: "درب عقب اصل آلمان"
+            },
+            {
+                id: 12,
+                name: "پیستون پورشه کاین",
+                price: 3200000,
+                image: "🔧",
+                brand: "Porsche",
+                category: "engine",
+                description: "پیستون اصل آلمان"
+            },
+            {
+                id: 13,
+                name: "رادیاتور پورشه ماکان",
+                price: 4200000,
+                image: "🌡️",
+                brand: "Porsche",
+                category: "frontend",
+                description: "رادیاتور آب کامل"
+            },
+            {
+                id: 14,
+                name: "گیربکس پورشه 718",
+                price: 18000000,
+                image: "⚙️",
+                brand: "Porsche",
+                category: "gearbox",
+                description: "گیربکس دستی 6 سرعته"
+            },
+            {
+                id: 15,
+                name: "سیستم روشنایی پورشه",
+                price: 5600000,
+                image: "💡",
+                brand: "Porsche",
+                category: "electrical",
+                description: "سیستم روشنایی LED"
+            }
+        ];
+
+        let cart = [];
+        let currentFilter = 'all';
+        let currentCategory = 'all';
+        let isAdminLoggedIn = false;
+        let editingProductId = null;
+        let nextProductId = 21;
+
+        // Initialize the page
+        function init() {
+            loadProductsFromStorage();
+            renderProducts();
+            updateCartBadge();
+        }
+
+        // Load products from localStorage
+        function loadProductsFromStorage() {
+            const savedProducts = localStorage.getItem('bsparts_products');
+            const savedNextId = localStorage.getItem('bsparts_nextId');
+            
+            if (savedProducts) {
+                products = JSON.parse(savedProducts);
+            }
+            
+            if (savedNextId) {
+                nextProductId = parseInt(savedNextId);
+            }
+        }
+
+        // Save products to localStorage
+        function saveProductsToStorage() {
+            localStorage.setItem('bsparts_products', JSON.stringify(products));
+            localStorage.setItem('bsparts_nextId', nextProductId.toString());
+        }
+
+        // Admin Functions
+        function showAdminLogin() {
+            document.getElementById('adminLoginModal').classList.remove('hidden');
+            document.getElementById('adminLoginModal').classList.add('flex');
+        }
+
+        function closeAdminLogin() {
+            document.getElementById('adminLoginModal').classList.add('hidden');
+            document.getElementById('adminLoginModal').classList.remove('flex');
+            document.getElementById('adminPassword').value = '';
+        }
+
+        function checkAdminPassword() {
+            const password = document.getElementById('adminPassword').value;
+            if (password === 'admin123') {
+                isAdminLoggedIn = true;
+                closeAdminLogin();
+                showAdminPanel();
+                showNotification('ورود موفق! به پنل مدیریت خوش آمدید');
+            } else {
+                showNotification('رمز عبور اشتباه است');
+            }
+        }
+
+        function showAdminPanel() {
+            document.getElementById('adminPanel').classList.remove('hidden');
+            renderAdminProductsList();
+        }
+
+        function closeAdminPanel() {
+            document.getElementById('adminPanel').classList.add('hidden');
+            isAdminLoggedIn = false;
+        }
+
+        function renderAdminProductsList() {
+            const tbody = document.getElementById('adminProductsList');
+            tbody.innerHTML = products.map(product => `
+                <tr>
+                    <td class="border border-gray-300 px-4 py-2 text-center">
+                        ${product.image.startsWith('data:') ? 
+                            `<img src="${product.image}" alt="${product.name}" class="w-12 h-12 object-cover rounded mx-auto">` : 
+                            `<div class="text-2xl">${product.image}</div>`
+                        }
+                    </td>
+                    <td class="border border-gray-300 px-4 py-2">${product.name}</td>
+                    <td class="border border-gray-300 px-4 py-2">${product.price.toLocaleString()} تومان</td>
+                    <td class="border border-gray-300 px-4 py-2">${product.brand}</td>
+                    <td class="border border-gray-300 px-4 py-2">${getCategoryName(product.category)}</td>
+                    <td class="border border-gray-300 px-4 py-2">
+                        <button onclick="editProduct(${product.id})" class="bg-blue-500 text-white px-2 py-1 rounded text-sm hover:bg-blue-600 ml-2">
+                            ✏️ ویرایش
+                        </button>
+                        <button onclick="deleteProduct(${product.id})" class="bg-red-500 text-white px-2 py-1 rounded text-sm hover:bg-red-600">
+                            🗑️ حذف
+                        </button>
+                    </td>
+                </tr>
+            `).join('');
+        }
+
+        function getCategoryName(category) {
+            const categories = {
+                'body': 'لوازم بدنه',
+                'engine': 'لوازم موتوری',
+                'frontend': 'لوازم جلوبندی',
+                'gearbox': 'گیربکس و دیفرانسیل',
+                'electrical': 'لوازم برقی'
+            };
+            return categories[category] || category;
+        }
+
+        function addNewProduct() {
+            const name = document.getElementById('newProductName').value;
+            const price = parseInt(document.getElementById('newProductPrice').value);
+            const brand = document.getElementById('newProductBrand').value;
+            const category = document.getElementById('newProductCategory').value;
+            const image = document.getElementById('newProductImage').value || '🔧';
+            const description = document.getElementById('newProductDescription').value;
+
+            if (!name || !price || !description) {
+                showNotification('لطفاً تمام فیلدهای ضروری را پر کنید');
+                return;
+            }
+
+            const newProduct = {
+                id: nextProductId++,
+                name,
+                price,
+                brand,
+                category,
+                image,
+                description
+            };
+
+            products.push(newProduct);
+            saveProductsToStorage(); // Save to localStorage
+            renderProducts();
+            renderAdminProductsList();
+            
+            // Clear form
+            document.getElementById('newProductName').value = '';
+            document.getElementById('newProductPrice').value = '';
+            document.getElementById('newProductDescription').value = '';
+            document.getElementById('newProductImage').value = '';
+            
+            showNotification('محصول جدید با موفقیت اضافه شد');
+        }
+
+        function editProduct(productId) {
+            const product = products.find(p => p.id === productId);
+            if (!product) return;
+
+            editingProductId = productId;
+            document.getElementById('editProductName').value = product.name;
+            document.getElementById('editProductPrice').value = product.price;
+            document.getElementById('editProductDescription').value = product.description;
+            document.getElementById('editProductImage').value = product.image;
+
+            document.getElementById('editProductModal').classList.remove('hidden');
+            document.getElementById('editProductModal').classList.add('flex');
+        }
+
+        function closeEditProduct() {
+            document.getElementById('editProductModal').classList.add('hidden');
+            document.getElementById('editProductModal').classList.remove('flex');
+            editingProductId = null;
+        }
+
+        function saveProductChanges() {
+            if (!editingProductId) return;
+
+            const product = products.find(p => p.id === editingProductId);
+            if (!product) return;
+
+            product.name = document.getElementById('editProductName').value;
+            product.price = parseInt(document.getElementById('editProductPrice').value);
+            product.description = document.getElementById('editProductDescription').value;
+            product.image = document.getElementById('editProductImage').value;
+
+            saveProductsToStorage(); // Save to localStorage
+            renderProducts();
+            renderAdminProductsList();
+            closeEditProduct();
+            showNotification('تغییرات با موفقیت ذخیره شد');
+        }
+
+        function deleteProduct(productId) {
+            if (confirm('آیا از حذف این محصول اطمینان دارید؟')) {
+                products = products.filter(p => p.id !== productId);
+                saveProductsToStorage(); // Save to localStorage
+                renderProducts();
+                renderAdminProductsList();
+                showNotification('محصول با موفقیت حذف شد');
+            }
+        }
+
+        // Filter products by brand
+        function filterByBrand(brand) {
+            currentFilter = brand;
+            currentCategory = 'all';
+            renderProducts();
+        }
+
+        // Filter products by category
+        function filterByCategory(brand, category) {
+            currentFilter = brand;
+            currentCategory = category;
+            renderProducts();
+        }
+
+        // Render products
+        function renderProducts() {
+            const grid = document.getElementById('productsGrid');
+            let filteredProducts = products;
+            
+            if (currentFilter !== 'all') {
+                filteredProducts = products.filter(product => product.brand === currentFilter);
+            }
+            
+            if (currentCategory !== 'all') {
+                filteredProducts = filteredProducts.filter(product => product.category === currentCategory);
+            }
+            
+            grid.innerHTML = filteredProducts.map(product => `
+                <div class="bg-white rounded-lg shadow-md overflow-hidden product-card transition-transform duration-300">
+                    <div class="p-6 text-center">
+                        <div class="mb-4 flex justify-center">
+                            ${product.image.startsWith('data:') ? 
+                                `<img src="${product.image}" alt="${product.name}" class="w-16 h-16 object-cover rounded-lg">` : 
+                                `<div class="text-4xl">${product.image}</div>`
+                            }
+                        </div>
+                        <h3 class="font-semibold text-lg mb-2">${product.name}</h3>
+                        <p class="text-gray-600 text-sm mb-4">${product.description}</p>
+                        <div class="flex items-center justify-between">
+                            <span class="text-blue-600 font-bold">${product.price.toLocaleString()} تومان</span>
+                            <button onclick="addToCart(${product.id})" 
+                                    class="bg-blue-600 text-white px-4 py-2 rounded-lg hover:bg-blue-700 transition-colors">
+                                افزودن به سبد
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            `).join('');
+        }
+
+        // Add to cart
+        function addToCart(productId) {
+            const product = products.find(p => p.id === productId);
+            const existingItem = cart.find(item => item.id === productId);
+            
+            if (existingItem) {
+                existingItem.quantity += 1;
+            } else {
+                cart.push({...product, quantity: 1});
+            }
+            
+            updateCartBadge();
+            updateCartDisplay();
+            
+            // Show success message
+            showNotification('محصول به سبد خرید اضافه شد');
+        }
+
+        // Update cart badge
+        function updateCartBadge() {
+            const badge = document.getElementById('cartBadge');
+            const totalItems = cart.reduce((sum, item) => sum + item.quantity, 0);
+            badge.textContent = totalItems;
+        }
+
+        // Toggle cart sidebar
+        function toggleCart() {
+            const sidebar = document.getElementById('cartSidebar');
+            const overlay = document.getElementById('overlay');
+            
+            if (sidebar.classList.contains('translate-x-full')) {
+                sidebar.classList.remove('translate-x-full');
+                overlay.classList.remove('hidden');
+                updateCartDisplay();
+            } else {
+                sidebar.classList.add('translate-x-full');
+                overlay.classList.add('hidden');
+            }
+        }
+
+        // Update cart display
+        function updateCartDisplay() {
+            const cartItems = document.getElementById('cartItems');
+            const cartTotal = document.getElementById('cartTotal');
+            
+            if (cart.length === 0) {
+                cartItems.innerHTML = '<div class="text-center text-gray-500 py-8">سبد خرید شما خالی است</div>';
+                cartTotal.textContent = '0 تومان';
+                return;
+            }
+            
+            cartItems.innerHTML = cart.map(item => `
+                <div class="flex items-center justify-between py-4 border-b">
+                    <div class="flex items-center space-x-3 space-x-reverse">
+                        ${item.image.startsWith('data:') ? 
+                            `<img src="${item.image}" alt="${item.name}" class="w-8 h-8 object-cover rounded">` : 
+                            `<span class="text-2xl">${item.image}</span>`
+                        }
+                        <div>
+                            <h4 class="font-medium text-sm">${item.name}</h4>
+                            <p class="text-gray-600 text-xs">${item.price.toLocaleString()} تومان</p>
+                        </div>
+                    </div>
+                    <div class="flex items-center space-x-2 space-x-reverse">
+                        <button onclick="changeQuantity(${item.id}, -1)" class="w-6 h-6 bg-gray-200 rounded text-sm hover:bg-gray-300">-</button>
+                        <span class="w-8 text-center">${item.quantity}</span>
+                        <button onclick="changeQuantity(${item.id}, 1)" class="w-6 h-6 bg-gray-200 rounded text-sm hover:bg-gray-300">+</button>
+                    </div>
+                </div>
+            `).join('');
+            
+            const total = cart.reduce((sum, item) => sum + (item.price * item.quantity), 0);
+            cartTotal.textContent = total.toLocaleString() + ' تومان';
+        }
+
+        // Change quantity
+        function changeQuantity(productId, change) {
+            const item = cart.find(item => item.id === productId);
+            if (item) {
+                item.quantity += change;
+                if (item.quantity <= 0) {
+                    cart = cart.filter(cartItem => cartItem.id !== productId);
+                }
+                updateCartBadge();
+                updateCartDisplay();
+            }
+        }
+
+        // Proceed to checkout
+        function proceedToCheckout() {
+            if (cart.length === 0) {
+                showNotification('سبد خرید شما خالی است');
+                return;
+            }
+            
+            document.getElementById('checkoutModal').classList.remove('hidden');
+            document.getElementById('checkoutModal').classList.add('flex');
+        }
+
+        // Close checkout
+        function closeCheckout() {
+            document.getElementById('checkoutModal').classList.add('hidden');
+            document.getElementById('checkoutModal').classList.remove('flex');
+        }
+
+        // Process payment
+        function processPayment() {
+            // Get customer info
+            const customerName = document.querySelector('input[type="text"]').value || 'مشتری';
+            const customerPhone = document.querySelector('input[type="tel"]').value || 'نامشخص';
+            const customerAddress = document.querySelector('textarea').value || 'نامشخص';
+            
+            // Simulate payment processing
+            showNotification('در حال اتصال به درگاه پرداخت...');
+            
+            setTimeout(() => {
+                // Send SMS notification
+                sendSMSNotification(customerName, customerPhone, customerAddress);
+                
+                showNotification('پرداخت با موفقیت انجام شد! سفارش شما ثبت گردید.');
+                cart = [];
+                updateCartBadge();
+                updateCartDisplay();
+                closeCheckout();
+                toggleCart();
+            }, 2000);
+        }
+
+        // Send SMS notification function
+        function sendSMSNotification(customerName, customerPhone, customerAddress) {
+            const targetPhone = '09124583607';
+            const total = cart.reduce((sum, item) => sum + (item.price * item.quantity), 0);
+            const itemCount = cart.reduce((sum, item) => sum + item.quantity, 0);
+            
+            // Create order summary
+            const orderItems = cart.map(item => `${item.name} (${item.quantity}x)`).join(', ');
+            
+            const smsMessage = `🚗 سفارش جدید B\\S PARTS
+مشتری: ${customerName}
+تلفن: ${customerPhone}
+آدرس: ${customerAddress}
+محصولات: ${orderItems}
+تعداد: ${itemCount} قطعه
+مبلغ: ${total.toLocaleString()} تومان
+زمان: ${new Date().toLocaleString('fa-IR')}`;
+
+            // Simulate SMS API call
+            console.log('Sending SMS to:', targetPhone);
+            console.log('Message:', smsMessage);
+            
+            // In a real application, you would call an SMS API here
+            // Example: fetch('/api/send-sms', { method: 'POST', body: JSON.stringify({phone: targetPhone, message: smsMessage}) })
+            
+            // Show confirmation
+            setTimeout(() => {
+                showNotification('پیامک اطلاع‌رسانی ارسال شد');
+            }, 1000);
+        }
+
+        // Show notification
+        function showNotification(message) {
+            const notification = document.createElement('div');
+            notification.className = 'fixed top-4 right-4 bg-green-600 text-white px-6 py-3 rounded-lg shadow-lg z-50 transform translate-x-full transition-transform duration-300';
+            notification.textContent = message;
+            document.body.appendChild(notification);
+            
+            setTimeout(() => {
+                notification.classList.remove('translate-x-full');
+            }, 100);
+            
+            setTimeout(() => {
+                notification.classList.add('translate-x-full');
+                setTimeout(() => {
+                    document.body.removeChild(notification);
+                }, 300);
+            }, 3000);
+        }
+
+        // Image handling functions
+        function toggleImageInput(type) {
+            const emojiRadio = document.querySelector(`input[name="${type}ImageType"][value="emoji"]`);
+            const uploadRadio = document.querySelector(`input[name="${type}ImageType"][value="upload"]`);
+            const textInput = document.getElementById(`${type}ProductImage`);
+            const fileInput = document.getElementById(`${type}ProductImageFile`);
+            const preview = document.getElementById(`${type}ImagePreview`);
+            
+            if (emojiRadio.checked) {
+                textInput.classList.remove('hidden');
+                fileInput.classList.add('hidden');
+                preview.classList.add('hidden');
+                textInput.placeholder = '🔧';
+            } else {
+                textInput.classList.add('hidden');
+                fileInput.classList.remove('hidden');
+                preview.classList.remove('hidden');
+            }
+        }
+
+        function handleImageUpload(type) {
+            const fileInput = document.getElementById(`${type}ProductImageFile`);
+            const previewImg = document.getElementById(`${type}PreviewImg`);
+            const textInput = document.getElementById(`${type}ProductImage`);
+            
+            const file = fileInput.files[0];
+            if (file) {
+                const reader = new FileReader();
+                reader.onload = function(e) {
+                    const base64 = e.target.result;
+                    previewImg.src = base64;
+                    textInput.value = base64; // Store base64 in the text input
+                };
+                reader.readAsDataURL(file);
+            }
+        }
+
+        // Initialize when page loads
+        init();
+    </script>
+<script>(function(){function c(){var b=a.contentDocument||a.contentWindow.document;if(b){var d=b.createElement('script');d.innerHTML="window.__CF$cv$params={r:'96b8748291b220ec',t:'MTc1NDU4NzMzNi4wMDAwMDA='};var a=document.createElement('script');a.nonce='';a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);";b.getElementsByTagName('head')[0].appendChild(d)}}if(document.body){var a=document.createElement('iframe');a.height=1;a.width=1;a.style.position='absolute';a.style.top=0;a.style.left=0;a.style.border='none';a.style.visibility='hidden';document.body.appendChild(a);if('loading'!==document.readyState)c();else if(window.addEventListener)document.addEventListener('DOMContentLoaded',c);else{var e=document.onreadystatechange||function(){};document.onreadystatechange=function(b){e(b);'loading'!==document.readyState&&(document.onreadystatechange=e,c())}}}})();</script></body>
+</html>
+
